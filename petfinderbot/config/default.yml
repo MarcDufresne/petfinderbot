@@ -1,0 +1,14 @@
+debug:
+  enabled: true
+
+sleep: 120
+
+petfinder:
+  filters: {}
+  country_filter: ""
+  client_id:
+  client_secret:
+
+telegram:
+  token:
+  chat_ids:

@@ -1,0 +1,33 @@
+version: '3'
+
+vars:
+  LINT_TARGETS: petfinderbot/
+  DOCKER_REPO: marcdufresne
+  DOCKER_IMAGE: petfinderbot
+
+tasks:
+  format:
+    cmds:
+      - poetry run black {{.LINT_TARGETS}}
+      - poetry run autoflake --in-place --remove-all-unused-imports -r {{.LINT_TARGETS}}
+      - poetry run isort {{.LINT_TARGETS}}
+
+  lint:
+    cmds:
+      - poetry run flake8 {{.LINT_TARGETS}}
+
+  build:
+    vars:
+      VERSION:
+        sh: poetry version -s
+    cmds:
+      - docker build -t "{{.DOCKER_REPO}}/{{.DOCKER_IMAGE}}:{{.VERSION}}" .
+
+  publish:
+    vars:
+      VERSION:
+        sh: poetry version -s
+    cmds:
+      - docker tag "{{.DOCKER_REPO}}/{{.DOCKER_IMAGE}}:{{.VERSION}}" "{{.DOCKER_REPO}}/{{.DOCKER_IMAGE}}:latest"
+      - docker push "{{.DOCKER_REPO}}/{{.DOCKER_IMAGE}}:{{.VERSION}}"
+      - docker push "{{.DOCKER_REPO}}/{{.DOCKER_IMAGE}}:latest"

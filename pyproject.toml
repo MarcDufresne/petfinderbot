@@ -1,0 +1,38 @@
+[tool.poetry]
+name = "petfinderbot"
+version = "0.1.0"
+description = ""
+authors = ["MarcDufresne <marc.andre.dufresne@gmail.com>"]
+packages = [
+    {include = "petfinderbot"}
+]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+opset = "^2.1.0"
+httpx = "^0.17.0"
+typer = "^0.3.2"
+pyTelegramBotAPI = "^3.7.6"
+python-dateutil = "^2.8.2"
+
+[tool.poetry.dev-dependencies]
+black = "^20.8b1"
+flake8 = "^3.8.4"
+flake8-black = "^0.2.1"
+isort = {version = "^5.7.0", extras = ["pyproject"]}
+flake8-isort = "^4.0.0"
+autoflake = "^1.4"
+
+[tool.black]
+line-length = 120
+
+[tool.isort]
+line_length = 120
+multi_line_output = 3
+use_parentheses = true
+case_sensitive = true
+include_trailing_comma = true
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
